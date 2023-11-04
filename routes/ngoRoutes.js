@@ -6,8 +6,18 @@ const Ngo = require('../models/Ngo'); // Import the Ngo model
 
 // Route to get all NGOs
 router.get('/ngos', async (req, res) => {
+
   try {
     const ngos = await Ngo.find();
+    if(ngos.length === 0){
+      res.json({
+        "timestamp": new Date(),
+        "status": 404,
+        "error":"No NGO found",
+        "message":"No NGO found",
+    });
+    return;
+    }
     // res.json({"ngos":"work"});  
     res.json(ngos);
   } catch (error) {

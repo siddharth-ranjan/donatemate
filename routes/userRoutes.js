@@ -8,6 +8,16 @@ const User = require('../models/User'); // Import the User model
 router.get('/users', async (req, res) => {
   try {
     const users = await User.find();
+    if(users.length === 0){
+      res.json({
+        "timestamp": new Date(),
+        "status": 404,
+        "error":"No user found",
+        "message":"No user found",
+      });
+      return;
+    }
+
     res.json(users);
   } catch (error) {
     console.error(error);
@@ -17,13 +27,19 @@ router.get('/users', async (req, res) => {
 
 // Route to create a new user
 router.post('/users', async (req, res) => {
-  const { userid, username, usercontact } = req.body;
+  const { userid, username, userphone, useremail } = req.body;
 
   try {
+    const user = await User.find({userid, username, userphone, useremail});
+    if(user.length !== 0){
+      res.json({"message": "Duplicate user found"});
+      return;
+    }
     const newUser = new User({
       userid,
-      username,
-      usercontact,
+      username, 
+      userphone, 
+      useremail,
     });
     await newUser.save();
     res.json(newUser);

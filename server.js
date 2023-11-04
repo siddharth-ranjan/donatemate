@@ -15,12 +15,12 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/donation-portal');
+mongoose.connect('mongodb+srv://siddharthranjan0909:Qwertyuiop@cluster0.h1fom41.mongodb.net/ngo-donation-portal');
 
 // Include routes for each collection
-// app.get('/', (req, res) => {
-//   res.send('<h1>Welcome to the Home Page!</h1>');
-// });
+app.get('/', (req, res) => {
+  res.json({"message":"Congratulation! Server is working fine"});
+});
 
 
 app.use('/api', ngoRoutes);

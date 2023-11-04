@@ -8,6 +8,16 @@ const ExcessTable = require('../models/ExcessTable'); // Import the ExcessTable 
 router.get('/excess-items', async (req, res) => {
   try {
     const excessItems = await ExcessTable.find();
+    if(excessItems.length === 0){
+      res.json({
+        "timestamp": new Date(),
+        "status": 404,
+        "error":"No Excess Items found",
+        "message":"No Excess Items found",
+      });
+      return;
+    }
+
     res.json(excessItems);
   } catch (error) {
     console.error(error);

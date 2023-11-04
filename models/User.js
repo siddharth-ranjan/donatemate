@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   
-  ngophone: String,
-  ngoemail: String,
+  userphone: Number,
+  useremail: String,
 });
 
 const User = mongoose.model('User', userSchema);
