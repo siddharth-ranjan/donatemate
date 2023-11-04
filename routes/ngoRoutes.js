@@ -28,13 +28,19 @@ router.get('/ngos', async (req, res) => {
 
 // Route to create a new NGO
 router.post('/ngos', async (req, res) => {
-  const { ngoname, ngophone, ngoemail } = req.body;
+  const { ngoname, ngophone, ngoemail, ngopassword } = req.body;
 
   try {
+    const ngo = await Ngo.find({ngoname, ngophone, ngoemail});
+    if(ngo.length !== 0){
+      res.json({"message": "Duplicate Ngo found"});
+      return;
+    }
     const newNgo = new Ngo({
       ngoname,
       ngophone,
       ngoemail,
+      ngopassword,
     });
     await newNgo.save();
     res.json(newNgo);

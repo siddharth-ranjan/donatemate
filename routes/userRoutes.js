@@ -27,19 +27,19 @@ router.get('/users', async (req, res) => {
 
 // Route to create a new user
 router.post('/users', async (req, res) => {
-  const { userid, username, userphone, useremail } = req.body;
+  const { username, userphone, useremail, password } = req.body;
 
   try {
-    const user = await User.find({userid, username, userphone, useremail});
+    const user = await User.find({username, userphone, useremail, password});
     if(user.length !== 0){
       res.json({"message": "Duplicate user found"});
       return;
     }
     const newUser = new User({
-      userid,
       username, 
       userphone, 
       useremail,
+      password,
     });
     await newUser.save();
     res.json(newUser);

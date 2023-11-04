@@ -7,6 +7,10 @@ const ngoSchema = new mongoose.Schema({
   },
   ngophone: Number,
   ngoemail: String,
+  ngopassword: {
+    type: String,
+    required: true,
+  }
 });
 
 const Ngo = mongoose.model('Ngo', ngoSchema);
