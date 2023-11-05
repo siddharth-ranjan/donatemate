@@ -2,17 +2,19 @@
 const mongoose = require('mongoose');
 
 const ngoItemSchema = new mongoose.Schema({
-  ngoid: {
-    type: Number,
-    required: true,
-  },
+  
   itemname: {
     type: String,
     required: true,
   },
+  numerOfTimer: Number,
   date: {
     type: Date,
     default: Date.now(),
+  },
+  ngoid: {
+    type: Number,
+    required: true,
   },
 });
 
